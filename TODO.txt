@@ -1,0 +1,68 @@
+To-Do List
+==========
+
+hodge-podge.c
+-------------
+
+- Improve error checking and handling
+
+- Improve command-line argument syntax, parsing, and sanity-checking
+
+- Let user provide initial cell states
+
+- Write more metadata to HDF5 files:
+  - SHA checksum of initial cell states
+  - % healthy, infected, and ill at each step
+  - histogram of cell states at each step
+  - some measure of complexity of cell states
+
+- Cell states are represented as 16-bit unsigned integers.  Make this more
+flexible.  At minimum, implement both 8-bit and 16-bit unsigned integer data
+types.  Also strongly consider 1-bit
+
+- Halo depth is 2.  Make this more flexible
+
+- Consider adding more neighborhood types
+
+- Make the program more general so it can run automata other than the hodge
+  podge machine
+
+- Consider using OpenMP
+
+- Consider running on GPU using CUDA C, OpenACC, or OpenCL
+
+- Make MPI optional?
+
+- Consider implementing alternative output -- e.g., PNG files
+
+- Consider using parallel HDF5 so that all MPI ranks can write to the same file
+
+Testing
+-------
+
+- Create a test suite
+
+- Ensure 100% code coverage
+
+Documentation
+-------------
+
+- Explain how to get the software up and running on Amazon Web Services
+
+- Consider making an instructional video
+
+Gallery
+-------
+
+- Offer a gallery of images and videos on the web
+
+License
+-------
+
+- Figure out which open-source license to use
+
+Other
+-----
+
+- Write a job-script generator in Python
+
