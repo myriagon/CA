@@ -27,6 +27,10 @@ types.  Also strongly consider 1-bit
 - Make the program more general so it can run automata other than the hodge
   podge machine
 
+- Consider implementing triangular and hexagonal lattices
+
+- Consider implementing 3D automata
+
 - Consider using OpenMP
 
 - Consider running on GPU using CUDA C, OpenACC, or OpenCL
