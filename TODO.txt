@@ -10,6 +10,8 @@ hodge-podge.c
 
 - Let user provide initial cell states
 
+- Detect when infection ceases -- i.e., when all cells turn healthy (state 0)
+
 - Write more metadata to HDF5 files:
   - SHA checksum of initial cell states
   - % healthy, infected, and ill at each step
