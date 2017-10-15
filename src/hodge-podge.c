@@ -226,7 +226,13 @@ int main (int argc, char **argv)
    uint16 *rcv_mem [N_HALO_NEIGHBORS];  // array of pointers
    uint16 *snd_mem [N_HALO_NEIGHBORS];  // array of pointers
 
-   // !!! init snd_mem and rcv_mem arrays with NULL pointers
+   // Initialize halo arrays
+   for (int j = 0; j < N_HALO_NEIGHBORS; j++) {
+      halo_ranks  [j] = 0;
+      halo_nelems [j] = 0;
+      rcv_mem [j] = NULL;
+      snd_mem [j] = NULL;
+   }
 
    err = halo_setup (rank,
       tile_y_dim, tile_x_dim, matrix_y_dim, matrix_x_dim,
