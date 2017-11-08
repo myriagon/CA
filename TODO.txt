@@ -19,6 +19,12 @@ hodge-podge.c
   - % healthy, infected, and ill at each step
   - histogram of cell states at each step
   - some measure of complexity of cell states
+  - in addition to (or instead of) a neighborhood type number, store the name
+    (if any) and a simple pictorial representation -- e.g.,
+    von Neumann
+    010
+    111
+    010
 
 - Cell states are represented as 16-bit unsigned integers.  Make this more
 flexible.  At minimum, implement both 8-bit and 16-bit unsigned integer data
