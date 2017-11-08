@@ -13,6 +13,12 @@
 //  e m v m e
 //  e e e e e
 
+// Keep neighborhood-type numbers in the range [0, 255], at least for now.
+// The numbers must be non-negative since they are used as indices into the
+// neighborhood_type_names array.
+// Neighborhood type is treated as an unsigned 8-bit int by hodge-podge.c
+// and is stored as an unsigned 16-bit int attribute in the output HDF5 file.
+
 enum neighborhood_type_nums { VON_NEUMANN=0, MOORE, EXT_MOORE };
 
 const char *neighborhood_type_names [3] = {

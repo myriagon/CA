@@ -147,9 +147,9 @@ int main (int argc, char **argv)
       fprintf (stderr, "Failed to parse arg 4, neighborhood type (0, 1, or 2)\n");
       fatal++;
    }
-   if (EXT_MOORE != neighborhood_type) {
+   if ((uint8)EXT_MOORE != neighborhood_type) {
       fprintf (stderr, "Sorry, only neighborhood type %hhu (%s) is supported"
-         " right now\n", EXT_MOORE, neighborhood_type_names [EXT_MOORE]);
+         " right now\n", (uint8)EXT_MOORE, neighborhood_type_names [EXT_MOORE]);
       fatal++;
    }
    if ( 1 != sscanf (argv[5], "%hu", &V) ) {
