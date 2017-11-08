@@ -771,26 +771,61 @@ static int create_u32le_attr (int rank, hid_t dset_id, const char *att_name,
 /*------------------------------------------------------------------------------
 gen_random_uint16_0_to_V
 
-Generate random unsigned 16-bit values in range [0, V]
+Fill `mem' with pseudo-random unsigned 16-bit values in the range [0, V].
+Take care to avoid bias
 ------------------------------------------------------------------------------*/
 
 static int gen_random_uint16_0_to_V (int rank, uint16 V, size_t len,
    uint16 *mem)
 {
-   // int RAND_bytes (unsigned char *buf, int num);
-   // RAND_bytes () produces unsigned chars (uint8).  We need len*2 of them
-   // to fill the uint16 array
-   if (1 != RAND_bytes ((uint8 *) mem, len * 2)) {  // 1 means success
-      fprintf (stderr, "MPI rank %d: RAND_bytes () failed\n", rank);
-      exit (31);
+   // Allocate a temporary buffer for random numbers.  We'll generate a bunch
+   // of them and use them (or discard them) one by one, then generate more
+   uint16 *buf = NULL;
+#define NUM_ELEMS 1024
+   buf = (uint16 *) calloc ((size_t) NUM_ELEMS, sizeof(uint16));
+   if (NULL == buf) {
+      fprintf (stderr, "calloc () failed\n");
+      exit (29);
    }
+
 #define MAX_UINT16_VALUE 65535
-   if (V < MAX_UINT16_VALUE) {
-      size_t ii = 0;
-      for (ii = 0; ii < len; ii++) {
-         mem [ii] %= (V + 1);  // Keep random values in range [0, V]
+   uint16 max_usable_random =
+        (MAX_UINT16_VALUE == V)
+      ?  MAX_UINT16_VALUE
+      : (MAX_UINT16_VALUE / (V + 1)) * (V + 1) - 1;  // integer div
+
+   size_t remaining_randoms = 0;
+   size_t next_cell = 0;
+
+   while (next_cell < len) {
+      // If buffer of random numbers is empty, generate a bunch
+      if (0 == remaining_randoms) {
+         // RAND_bytes () produces unsigned chars (uint8).  We need 2*NUM_ELEMS
+         // of them to fill the uint16 temporary buffer
+         if (1 != RAND_bytes ((uint8 *) buf, 2 * NUM_ELEMS)) {  // 1 is success
+            fprintf (stderr, "RAND_bytes () failed\n");
+            exit (31);
+         }
+         remaining_randoms = NUM_ELEMS;
       }
+      // In order to avoid bias, we can only use random numbers in the range
+      // [0, N*(V+1)-1] modulo V+1.
+      // We want random numbers in the range [0, V], a set of V+1 numbers.
+      // We have a buffer full of random numbers in the range [0, 65535].
+      // We can use values [0, V] straightaway.
+      // We can also use [V+1, 2V+1] modulo V+1.
+      // And so on with [2V+2, 3V+2], [3V+3, 4V+3], ..., up to
+      // [(N-1)V+(N-1), NV+(N-1)].  Note that NV+(N-1) is the same as N*(V+1)-1.
+      if (buf [remaining_randoms-1] <= max_usable_random) {
+         mem [next_cell] = buf [remaining_randoms-1] % (V + 1);
+         ++next_cell;
+      }
+      --remaining_randoms;
    }
+
+   // Clean up random number buffer
+   free (buf);  buf = NULL;
+
    return 0;
 }
 
