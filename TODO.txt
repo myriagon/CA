@@ -8,6 +8,8 @@ hodge-podge.c
 
 - Improve command-line argument syntax, parsing, and sanity-checking
 
+- Consider building a Cython front end
+
 - Let user provide initial cell states
 
 - Detect when infection ceases -- i.e., when all cells turn healthy (state 0)
@@ -50,8 +52,13 @@ Testing
 
 - Ensure 100% code coverage
 
+- Use a performance profiler such as Valgrind to look for hot spots
+
 Documentation
 -------------
+
+- Explain how to get the software up and running on a multicore computer using
+mpirun
 
 - Explain how to get the software up and running on Amazon Web Services
 
