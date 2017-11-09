@@ -241,7 +241,7 @@ int main (int argc, char **argv)
       halo_ranks, halo_nelems, rcv_mem, snd_mem);
 
    fprintf (stderr, "MPI rank %d: halo setup:\n"
-      "tile_y_dim %hu tile_x_dim %hu matrix_y_dim %hu matrix_x_dim %hu\n"
+      "tile_y_dim %u tile_x_dim %u matrix_y_dim %hu matrix_x_dim %hu\n"
       "matrix_y %hu matrix_y_above %hu matrix_y_below %hu\n"
       "matrix_x %hu matrix_x_left  %hu matrix_x_right %hu\n"
       "halo_ranks\n"
