@@ -500,13 +500,13 @@ int halo_setup (int rank,
       rcv_mem[n] = (uint16 *) calloc ((size_t) halo_nelems[directions[n]],
          sizeof(uint16));
       if (NULL == rcv_mem[n]) {
-         fprintf (stderr, "MPI rank %d: calloc () failed for rcv_mem[%d]\n", rank, n);
+         fprintf (stderr, "MPI rank %d: calloc () failed for rcv_mem[%zu]\n", rank, n);
          exit (21);
       }
       snd_mem[n] = (uint16 *) calloc ((size_t) halo_nelems[reverse_directions[n]],
          sizeof(uint16));
       if (NULL == snd_mem[n]) {
-         fprintf (stderr, "MPI rank %d: calloc () failed for snd_mem[%d]\n", rank, n);
+         fprintf (stderr, "MPI rank %d: calloc () failed for snd_mem[%zu]\n", rank, n);
          exit (23);
       }
    }
