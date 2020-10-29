@@ -75,11 +75,6 @@ Gallery
 
 - Offer a gallery of images and videos on the web
 
-License
--------
-
-- Figure out which open-source license to use
-
 Other
 -----
 
